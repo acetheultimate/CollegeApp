@@ -4,7 +4,7 @@ const db = require("../db");
 class Courses {
 
     createCourse(values) {
-        let query = "INSERT INTO courses (courseName, teacherName, courseCredits) VALUES (?, ?, ?)";
+        let query = "INSERT INTO courses (courseName, courseCredits, teacherName) VALUES (?, ?, ?)";
         return new Promise((resolve, reject) => {
             db.query(query, values, (err, result) => {
                 if (err) {
