@@ -19,7 +19,7 @@ connection.connect((err) => {
 
 fs.readFile("./.env", "utf8", (err, data) => {
     if (!err) {
-        let env = JSON.stringify(data);
+        let env = JSON.parse(data);
         if (!env.setup) {
             const setup = require("./setup");
             setup.runSetup();
