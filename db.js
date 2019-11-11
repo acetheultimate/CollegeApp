@@ -1,11 +1,11 @@
-const db = require("mysql");
+const mysql = require("mysql");
 const fs = require("fs");
 
 var connection = mysql.createConnection({
-    host: 'localhost',
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: 'CollegeApp'
+    database: process.env.DB_NAME
 })
 
 connection.connect((err) => {
@@ -22,9 +22,13 @@ fs.readFile("./.env", "utf8", (err, data) => {
         let env = JSON.parse(data);
         if (!env.setup) {
             const setup = require("./setup");
-            setup.runSetup();
-
-
+            setup().then(result => {
+                env.setup = 1;
+                fs.writeFile("./.env", JSON.stringify(env), (error) => {
+                    if (error)
+                        console.warn("Error while saving setup file, setup complete!", error)
+                });
+            });
         }
     }
 })

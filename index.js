@@ -9,7 +9,7 @@ const server = app.listen(process.env.APP_PORT, () => {
 });
 
 // College Controller
-const CollegeController = require(__root + 'controllers/CollegeController');
+const CollegeController = require(__root + 'controllers/College');
 app.use('/api/college', CollegeController);
 
 
